@@ -4,8 +4,11 @@
 
 class GameFlow
 {
+private:
 
 
+
+public:
 
 
 

@@ -17,12 +17,11 @@ private:
 
 public:
 
-	void PrintGrid(); //todo
 	Player(string Name);
 	~Player();
 
-
-
-
+	void PrintGrid(); //todo
+	void AddShips();
+	void CheckForConflicts(Ship* s, int k);
 };
 

@@ -5,7 +5,8 @@
 class Computer : public Player
 {
 	using Player::Player;
-	//using Player::~Player;
+	
+
 
 
 };
