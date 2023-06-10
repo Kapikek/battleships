@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+
 #include <vector>
 #include "Ship.h"
 
@@ -10,8 +10,9 @@ class Player
 	friend class GameFlow;
 private:
 	int const grid_size = 10;
+	int const num_of_ships = 5;
 	int** grid;
-	vector<Ship*>ships;
+	vector<Ship*>ships; 
 	string name;
 
 
@@ -20,8 +21,13 @@ public:
 	Player(string Name);
 	~Player();
 
-	void PrintGrid(); //todo
+	void PrintGrid(bool IsEnemy); 
 	void AddShips();
-	void CheckForConflicts(Ship* s, int k);
+	void GridAdd(Ship* s, int k); 
+	bool CheckForConflicts(Ship* s, int k); //return 1 for conflicts
+	//todo GridClear(); jakby ktos chcial na nowo ulozyc statki
+
+	
+
 };
 

@@ -18,7 +18,8 @@ private:
 		"\033[1;34m"  //blue
 		};
 	int x, y; //x being letters from a to j (columns), and y being numbers 1 to 10 (rows)
-	int type; //0 - vertical, 1 - horizontal
+			  //but represented by numbers 0 - 9
+	bool type; //0 - vertical, 1 - horizontal
 
 
 public:

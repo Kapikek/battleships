@@ -18,7 +18,7 @@ Ship::Ship(int i) {
 	int coordsint = stoi(coords);
 	x = coordsint / 10;
 	y = coordsint % 10;
-	
+
 	
 }
 
@@ -28,7 +28,7 @@ string Ship::GetCoords() {
 
 	char let;
 
-	int ans1, ans2;
+	int ans1=0, ans2=0;
 	bool flag = 0;
 	while (flag == 0) {
 		cout << "Which column? (A - J)" << endl;
@@ -45,6 +45,7 @@ string Ship::GetCoords() {
 	while (flag == 0) {
 		cout << "Which row? (1 - 10)" << endl;
 		cin >> ans2;
+
 		for (int i = 1; i <= 10; i++) {
 			if (ans2 == i) {
 				ans2 = i - 1;
@@ -53,7 +54,7 @@ string Ship::GetCoords() {
 		}
 	}
 
-	return std::to_string(10 * ans1 + ans2);
+	return to_string(10 * ans1 + ans2-650);
 	//returns 2 (or 1 if ans1 = 0) digit string indicating our coordinates
 }
 
