@@ -16,8 +16,8 @@ Ship::Ship(int i) {
 
 	string coords = GetCoords();
 	int coordsint = stoi(coords);
-	x = coordsint / 10;
-	y = coordsint % 10;
+	y = coordsint / 10;
+	x = coordsint % 10;
 
 	
 }
@@ -54,7 +54,7 @@ string Ship::GetCoords() {
 		}
 	}
 
-	return to_string(10 * ans1 + ans2-650);
+	return to_string(10 * ans1 + ans2-650); //no idea why there is -650, but it works
 	//returns 2 (or 1 if ans1 = 0) digit string indicating our coordinates
 }
 

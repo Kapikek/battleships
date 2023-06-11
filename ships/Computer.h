@@ -6,6 +6,7 @@ class Computer : public Player
 {
 	using Player::Player;
 	
+public:
 
 
 
