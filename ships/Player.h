@@ -25,9 +25,8 @@ public:
 	void AddShips();
 	void GridAdd(Ship* s, int k); 
 	bool CheckForConflicts(Ship* s, int k); //return 1 for conflicts
-	//todo GridClear(); jakby ktos chcial na nowo ulozyc statki
-
-	
+	//todo GridClear(); if someone want to rearrange their ships
+	int HowManyLeft();
 
 };
 

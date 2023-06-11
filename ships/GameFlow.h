@@ -1,6 +1,12 @@
 #pragma once
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 #include "Player.h"
 #include "Computer.h"
+#include "Ship.h"
 
 class GameFlow
 {
@@ -11,7 +17,7 @@ private:
 public:
 	GameFlow();
 	void Intro();
-	void GameLoop(Player* P1,Player* P2);
+	void Shoot(Player* shooter, Player* victim);
 
 };
 

@@ -7,6 +7,7 @@ using namespace std;
 class Ship
 {
 	friend class Player;
+	friend class Gameflow;
 private:
 	
 	int sizes[5] = {5, 4, 3, 3, 2};

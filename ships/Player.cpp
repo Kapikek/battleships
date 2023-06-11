@@ -31,7 +31,7 @@ Player::~Player() {
 void Player::PrintGrid(bool IsEnemy) {
 
 	string alf = "ABCDEFGHIJ";
-	cout << "\033[1;45m" << name << "\033[0m" << endl << endl;
+	cout << "\033[1;32m" << name << "'s board" << "\033[0m" << endl << endl;
 
 	cout << "   A B C D E F G H I J" << endl;
 	for (int i = 0; i < grid_size; i++) {
@@ -99,16 +99,16 @@ void Player::AddShips() {
 bool Player::CheckForConflicts(Ship* s, int k) {
 	//return 1 for conflicts
 	//type  =  0 - vertical, 1 - horizontal
-	int counter = 0;
+
 	//check if it fits in grid
-	if (s->y + (s->type * s->sizes[k]) > grid_size - 1) { return true; }
-	if (s->x + (not(s->type) * s->sizes[k]) > grid_size - 1) { return true; }
+	if (s->x + (not(s->type) * s->sizes[k]-1) > grid_size - 1) { return true; }
+	if (s->y + (s->type * s->sizes[k]-1) > grid_size - 1) { return true; }
 	
 	//check if cells arent already taken by other ship
-	for (int i = s->x; i < s->x + (s->type * (s->sizes[k]-1)); i++) {
+	for (int i = s->x; i <= s->x + (not(s->type) * (s->sizes[k]-1)); i++) {
 
-		for (int j = s->y; j < s->y + (not(s->type) * (s->sizes[k]-1)); j++) {
-			counter++;
+		for (int j = s->y; j <= s->y + (s->type * (s->sizes[k]-1)); j++) {
+
 			if (grid[i][j]!=0) {
 				return true;
 			}
@@ -146,4 +146,17 @@ void Player::GridAdd(Ship* s, int k) {
 		}
 
 
+}
+
+int Player::HowManyLeft() {
+	int counter = 0;
+	for (int i = 0; i < grid_size; i++) {
+
+		for (int j = 0; j < grid_size; j++) {
+
+			if (grid[i][j] != 0 && grid[i][j] != -1) counter++;
+
+		}
+	}
+	return counter;
 }
