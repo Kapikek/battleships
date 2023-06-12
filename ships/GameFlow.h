@@ -13,11 +13,10 @@ class GameFlow
 private:
 	vector<Player*>players;
 
-
 public:
 	GameFlow();
 	void Intro();
 	void Shoot(Player* shooter, Player* victim);
-
+	void GameLoop();
 };
 

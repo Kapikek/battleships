@@ -8,13 +8,14 @@ using namespace std;
 class Player
 {
 	friend class GameFlow;
+	friend class Computer;
 private:
 	int const grid_size = 10;
 	int const num_of_ships = 5;
 	int** grid;
 	vector<Ship*>ships; 
 	string name;
-
+	bool isreal = 1;
 
 public:
 

@@ -22,6 +22,14 @@ Ship::Ship(int i) {
 	
 }
 
+Ship::Ship(int xx, int yy, bool typee) {
+
+	x = xx;
+	y = yy;
+	type = typee;
+
+}
+
 string Ship::GetCoords() {
 
 	string alf = "ABCDEFGHIJ";

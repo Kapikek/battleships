@@ -26,6 +26,7 @@ private:
 public:
 
 	Ship(int i);
+	Ship(int xx, int yy, bool typee);
 	string GetCoords();
 
 
