@@ -21,8 +21,14 @@ GameFlow::GameFlow() {
 		cin >> P1name;
 		cout << "(P2) Please enter your name:" << endl;
 		cin >> P2name;
+
+		system("cls");
+
 		Player* P1 = new Player(P1name);
 		Player* P2 = new Player(P2name);	
+
+		P1->isreal = 1;
+		P2->isreal = 1;
 
 		cout << P1->name << ", its your turn to place ships, cover the screen from your opponent!" << endl;
 		P1->AddShips();
@@ -48,6 +54,9 @@ GameFlow::GameFlow() {
 		Player* P1 = new Player(P1name);
 		Computer* P2 = new Computer("AIris the Dumb");
 
+		P1->isreal = 1;
+		P2->isreal = 0;
+
 		cout << P1->name << "Please choose your ship placement" << endl;
 		P1->AddShips();
 		cout << "P1 added their ships" << endl;
@@ -66,17 +75,18 @@ GameFlow::GameFlow() {
 
 void GameFlow::GameLoop() {
 	
+
+
 	AddToFile(players[0]);
 	AddToFile(players[1]);
 
-	players[1]->isreal = 0;
 
 	while (players[0]->HowManyLeft() != 0 && players[1]->HowManyLeft() != 0) {
 		for (int i = 0; i < 2; i++) {
 
 			cout << "Turn of: " << "\033[1;45m" << players[i]->name << "\033[0m" << endl;
 
-			if(players[i]->isreal == 1)players[i]->PrintGrid(0);
+			if(players[(i+1)%2]->isreal == 0)players[i]->PrintGrid(0);
 			Shoot(players[i], players[(i + 1) % 2]);
 
 			if (players[(i + 1) % 2]->HowManyLeft() == 0) break;
@@ -86,8 +96,14 @@ void GameFlow::GameLoop() {
 		}
 	}
 
+	cout << "\033[1;32m";//  \033[0m";
+	cout << "----------------------" << endl << endl;
 	if (players[0]->HowManyLeft() == 0) cout << players[1]->name << " won!";
 	else cout << players[0]->name << " won!";
+	cout << "----------------------" << endl << endl;
+	cout<<"\033[0m";
+
+
 }
 
 void GameFlow::AddToFile(Player* P) {
@@ -116,9 +132,9 @@ void GameFlow::AddToFile(Player* P) {
 				break;
 
 			//could be useful in future
-			case -1: file1 << " X";
+			case -1: file1 << " x";
 				break;
-			case -2: file1 << "x";
+			case -2: file1 << "#";
 				break;
 			}
 
@@ -146,10 +162,12 @@ void GameFlow::Shoot(Player* shooter, Player* victim) {
 				cout << "Good shot!" << endl;
 			}
 			else {
-				victim->grid[x][y] = -2;
+				if(victim->grid[x][y] != -1)victim->grid[x][y] = -2;
 			}
-
-
+			if (victim->grid[x][y] != -1) {
+				cout << "You missed :(" << endl;
+				Sleep(1500);
+			}
 		} while (victim->grid[x][y] != 0 && victim->grid[x][y] != -2 && victim->HowManyLeft() != 0);
 	}
 	else {
@@ -157,7 +175,7 @@ void GameFlow::Shoot(Player* shooter, Player* victim) {
 		do {
 
 			srand((unsigned)time(NULL));
-
+			victim->PrintGrid(1);
 			int random = rand() % 100;
 			y = random / 10;
 			x = random % 10;
@@ -169,7 +187,7 @@ void GameFlow::Shoot(Player* shooter, Player* victim) {
 				Sleep(2000);
 			}
 			else {
-				victim->grid[x][y] = -2;
+				if (victim->grid[x][y] != -1)victim->grid[x][y] = -2;
 			}
 			
 
@@ -194,3 +212,9 @@ void GameFlow::Intro() {
 	cout << "\033[0m";
 }
 
+GameFlow::~GameFlow() {
+
+	delete players[0];
+	delete players[1];
+
+}

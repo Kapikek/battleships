@@ -11,8 +11,9 @@
 class Computer : public Player
 {
 	using Player::Player;
+	friend class GameFlow;
 private:
-	bool isreal = 0;
+	bool isreal;
 
 public:
 	void AddShips();

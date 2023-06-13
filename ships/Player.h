@@ -15,7 +15,7 @@ private:
 	int** grid;
 	vector<Ship*>ships; 
 	string name;
-	bool isreal = 1;
+	bool isreal;
 
 public:
 

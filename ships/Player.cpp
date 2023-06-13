@@ -16,7 +16,6 @@ Player::Player(string Name) {
 }
 
 Player::~Player() {
-	cout << "deleting players grid\n";
 	
 	for (int j = 0; j < grid_size; j++)
 		delete grid[j];
@@ -51,9 +50,9 @@ void Player::PrintGrid(bool IsEnemy) {
 			case 4: cout << "\033[;34m" << " 2" << "\033[0m";
 				break;
 
-			case -1: cout<<"\033[;35m"<<" X"<<"\033[0m";
+			case -1: cout << "\033[;35m " << "x" << "\033[0m";
 				break;
-			case -2: cout << "\033[;36m " << "x" << "\033[0m";
+			case -2: cout << "\033[;36m " << "#" << "\033[0m";
 				break;
 			}
 			if (IsEnemy == 1) switch (grid[i][j]) {
@@ -64,9 +63,9 @@ void Player::PrintGrid(bool IsEnemy) {
 			case 0: cout << "\033[1;36m " << "0" << "\033[0m";
 				break;
 
-			case -1: cout << "\033[1;35m" << "X" << "\033[0m";
+			case -1: cout << "\033[1;35m" << " " << "x" << "\033[0m";
 				break;
-			case -2: cout << "\033[;36m " << "x" << "\033[0m";
+			case -2: cout << "\033[;36m " << "#" << "\033[0m";
 				break;
 			}
 

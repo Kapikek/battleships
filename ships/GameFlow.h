@@ -16,6 +16,7 @@ private:
 
 public:
 	GameFlow();
+	~GameFlow();
 	void Intro();
 	void Shoot(Player* shooter, Player* victim);
 	void GameLoop();
