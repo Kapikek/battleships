@@ -10,7 +10,7 @@ void Computer::AddShips() {
 
 
 		srand((unsigned)time(NULL));
-
+		Sleep(50);
 		int random = rand()%100;
 		int y = random / 10;
 		int x = random % 10;
@@ -26,7 +26,7 @@ void Computer::AddShips() {
 			ships.push_back(s1);
 			GridAdd(s1, i);
 		}
-
+		
 	}
 
 

@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Computer.h"
 #include "Ship.h"
+#include <fstream>
 
 class GameFlow
 {
@@ -18,5 +19,8 @@ public:
 	void Intro();
 	void Shoot(Player* shooter, Player* victim);
 	void GameLoop();
+	void AddToFile(Player* P);
+
+
 };
 

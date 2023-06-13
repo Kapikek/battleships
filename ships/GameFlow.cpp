@@ -51,8 +51,9 @@ GameFlow::GameFlow() {
 		cout << P1->name << "Please choose your ship placement" << endl;
 		P1->AddShips();
 		cout << "P1 added their ships" << endl;
-		Sleep(5000);
+		
 		P2->AddShips();
+		system("cls");
 
 		players.push_back(P1);
 		players.push_back(P2);
@@ -65,12 +66,17 @@ GameFlow::GameFlow() {
 
 void GameFlow::GameLoop() {
 	
+	AddToFile(players[0]);
+	AddToFile(players[1]);
+
+	players[1]->isreal = 0;
 
 	while (players[0]->HowManyLeft() != 0 && players[1]->HowManyLeft() != 0) {
 		for (int i = 0; i < 2; i++) {
 
 			cout << "Turn of: " << "\033[1;45m" << players[i]->name << "\033[0m" << endl;
 
+			if(players[i]->isreal == 1)players[i]->PrintGrid(0);
 			Shoot(players[i], players[(i + 1) % 2]);
 
 			if (players[(i + 1) % 2]->HowManyLeft() == 0) break;
@@ -84,6 +90,44 @@ void GameFlow::GameLoop() {
 	else cout << players[0]->name << " won!";
 }
 
+void GameFlow::AddToFile(Player* P) {
+
+	ofstream file1(P->name);
+
+	string alf = "ABCDEFGHIJ";
+	file1 << P->name << "'s board" << endl << endl;
+
+	file1 << "   A B C D E F G H I J" << endl;
+	for (int i = 0; i < P->grid_size; i++) {
+		file1 << i + 1;
+		if (i + 1 < 10)file1 << " ";
+		for (int j = 0; j < P->grid_size; j++) {
+
+			switch (P->grid[i][j]) {
+			case 0: file1 << " -";
+				break;
+			case 1: file1 << " 5";
+				break;
+			case 2: file1 << " 4";
+				break;
+			case 3: file1 << " 3";
+				break;
+			case 4: file1 << " 2";
+				break;
+
+			//could be useful in future
+			case -1: file1 << " X";
+				break;
+			case -2: file1 << "x";
+				break;
+			}
+
+		}
+		file1 << endl;
+	}
+
+	file1.close();
+}
 
 
 void GameFlow::Shoot(Player* shooter, Player* victim) {
@@ -91,19 +135,22 @@ void GameFlow::Shoot(Player* shooter, Player* victim) {
 	if (shooter->isreal == 1) {
 		do {
 
-			cout << "Take your shot!" << endl;
 			victim->PrintGrid(1);
+			cout << "Take your shot!" << endl;
 			string coords = shooter->ships[0]->GetCoords();
 			int coordsint = stoi(coords);
 			y = coordsint / 10;
 			x = coordsint % 10;
-			if (victim->grid[x][y] != 0 && victim->grid[x][y] != -1) {
+			if (victim->grid[x][y] != 0 && victim->grid[x][y] != -1 && victim->grid[x][y] != -2) {
 				victim->grid[x][y] = -1; //mark as shot down
 				cout << "Good shot!" << endl;
 			}
+			else {
+				victim->grid[x][y] = -2;
+			}
 
 
-		} while (victim->grid[x][y] != 0 && victim->HowManyLeft() != 0);
+		} while (victim->grid[x][y] != 0 && victim->grid[x][y] != -2 && victim->HowManyLeft() != 0);
 	}
 	else {
 		//AIris will just shoot random for now
@@ -115,13 +162,18 @@ void GameFlow::Shoot(Player* shooter, Player* victim) {
 			y = random / 10;
 			x = random % 10;
 
-			if (victim->grid[x][y] != 0 && victim->grid[x][y] != -1) {
+			if (victim->grid[x][y] != 0 && victim->grid[x][y] != -1 && victim->grid[x][y] != -2) {
 				victim->grid[x][y] = -1; //mark as shot down
+				victim->PrintGrid(1);
+				cout << "She got it!" << endl;
+				Sleep(2000);
 			}
-			victim->PrintGrid(1);
-			Sleep(1000);
+			else {
+				victim->grid[x][y] = -2;
+			}
+			
 
-		} while (victim->grid[x][y] != 0 && victim->HowManyLeft() != 0);
+		} while (victim->grid[x][y] != 0 && victim->grid[x][y] != -2 && victim->HowManyLeft() != 0);
 
 
 
